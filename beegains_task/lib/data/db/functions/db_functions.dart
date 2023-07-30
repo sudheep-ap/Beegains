@@ -25,10 +25,8 @@ class LocalDatabase {
     final loginDb = Hive.box('loginDb');
     final userToken = loginDb.get('userTokenKey');
     final userName = loginDb.get('userNameKey');
-
     custUserToken = userToken ?? '';
     custUserName = userName ?? '';
-
     print('custUserToken : $custUserToken');
     print('custUserName : $custUserName');
   }
@@ -36,10 +34,8 @@ class LocalDatabase {
 // // To clear local db when user logs out
   Future<void> clearUserDetails() async {
     final loginDb = Hive.box('loginDb');
-
     await loginDb.delete('userTokenKey');
     await loginDb.delete('userNameKey');
-
     getUserDetails();
   }
 }

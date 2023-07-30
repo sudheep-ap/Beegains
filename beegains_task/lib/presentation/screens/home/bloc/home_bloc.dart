@@ -1,14 +1,12 @@
-import 'dart:async';
+// ignore_for_file: depend_on_referenced_packages
 
+import 'dart:async';
 import 'package:beegains_task/domian/models/home/home_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
-
 import '../../../../core/api_status.dart';
 import '../../../../data/repository/home/home_repository.dart';
 import '../../../../domian/repository/home/home_repo.dart';
-
 part 'home_event.dart';
 part 'home_state.dart';
 part 'home_bloc.freezed.dart';
@@ -30,6 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         return emit(state.copyWith(homeEnquiryState: AppStatus.failure));
       },
       (data) {
+        print('object');
         return emit(state.copyWith(
             homeEnquiryModel: data, homeEnquiryState: AppStatus.success));
       },

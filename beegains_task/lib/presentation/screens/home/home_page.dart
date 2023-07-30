@@ -4,6 +4,9 @@ import 'package:beegains_task/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/repository/home/home_repository.dart';
+import '../../../data/repository/login/login_repository.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -28,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                LocalDatabase().clearUserDetails();
+                LoginRepositoryImp().userLogOut(context);
               },
               icon: const Icon(Icons.exit_to_app_sharp))
         ],
@@ -46,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                 return Container(child: Text('Failed to load data'));
               } else {
                 return Container(
-                  child: Text('Loading'),
+                  child: Text('Something went wrong'),
                 );
               }
             },

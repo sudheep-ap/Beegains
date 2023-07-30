@@ -1,9 +1,14 @@
 import 'dart:convert';
+import 'package:beegains_task/core/common_functions.dart';
+import 'package:beegains_task/data/db/functions/db_functions.dart';
 import 'package:beegains_task/domian/models/login/login_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import '../../../core/api_status.dart';
+import '../../../core/constants.dart';
 import '../../../domian/repository/login/login_repo.dart';
 import 'package:http/http.dart' as http;
+import '../../../presentation/screens/home/home_page.dart';
 
 class LoginRepositoryImp implements LoginRepository {
   @override
@@ -28,5 +33,16 @@ class LoginRepositoryImp implements LoginRepository {
     } catch (e) {
       return left(ApiFailure(message: e.toString()));
     }
+  }
+
+  @override
+  void userLogOut(context) {
+    LocalDatabase().clearUserDetails();
+    showSnackBar(
+        context, 'Logged out successfully', AppColors().kSnackBarSuccessColor);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+        (Route<dynamic> route) => false);
   }
 }
