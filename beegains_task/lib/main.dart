@@ -3,9 +3,12 @@ import 'package:beegains_task/presentation/screens/login/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'data/repository/login/login_repository.dart';
+import 'data/db/functions/db_functions.dart';
 
-void main() {
+String custUserToken = '';
+String custUserName = '';
+void main() async {
+  await LocalDatabase().dataBaseInitialise();
   runApp(const MaterialApp(
     home: BeegainsApp(),
   ));

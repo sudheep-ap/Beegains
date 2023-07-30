@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:async';
+import 'package:beegains_task/data/db/functions/db_functions.dart';
 import 'package:beegains_task/domian/repository/login/login_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -29,6 +30,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         return emit(state.copyWith(loginState: AppStatus.failure));
       },
       (data) {
+        LocalDatabase()
+            .addUserDetails(data.data.token, data.data.user.username);
         return emit(
             state.copyWith(loginModel: data, loginState: AppStatus.success));
       },

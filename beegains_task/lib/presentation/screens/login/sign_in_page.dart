@@ -99,7 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                                   Navigator.pop(context);
                                   showSnackBar(
                                       context,
-                                      'Invalid username /password',
+                                      'Invalid username / password',
                                       AppColors().kSnackBarErrorColor);
 
                                   break;
