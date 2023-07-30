@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/app_status.dart';
+import '../../../core/api_status.dart';
 import '../../../core/common_functions.dart';
 import '../../../core/common_widgets.dart';
 import '../../../core/constants.dart';
@@ -80,40 +79,39 @@ class _SignInPageState extends State<SignInPage> {
                         const SizedBox(height: 80),
                         BlocListener<LoginBloc, LoginState>(
                             listener: (context, state) {
-                              // switch (state.loginState) {
-                              //   case AppStatus.loading:
-                              //     showLinearLoading(context, true, false);
+                              switch (state.loginState) {
+                                case AppStatus.loading:
+                                  //showLinearLoading(context, true, false);
+                                  showCircularLoading(context, true, false);
+                                  break;
+                                case AppStatus.success:
+                                  Navigator.pop(context);
 
-                              //     break;
-                              //   case AppStatus.success:
-                              //     Navigator.pop(context);
+                                  showSnackBar(
+                                      context,
+                                      'Logged In Successfully',
+                                      AppColors().kSnackBarSuccessColor);
+                                  //Navigate to home screen
+                                  // Navigator.pushNamed(context, '/HomePage');
 
-                              //     showSnackBar(
-                              //         context,
-                              //         'Logged In Successfully',
-                              //         AppColors().kSnackBarSuccessColor);
-                              //     //Navigate to home screen
-                              //     Navigator.pushNamed(context, '/toDoHomePage');
+                                  break;
+                                case AppStatus.failure:
+                                  Navigator.pop(context);
+                                  showSnackBar(
+                                      context,
+                                      'Invalid username /password',
+                                      AppColors().kSnackBarErrorColor);
 
-                              //     break;
-                              //   case AppStatus.failure:
-                              //     Navigator.pop(context);
-                              //     showSnackBar(
-                              //         context,
-                              //         'Invalid email/password',
-                              //         AppColors().kSnackBarErrorColor);
-
-                              //     break;
-                              //   default:
-                              // }
+                                  break;
+                                default:
+                              }
                             },
                             child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   context.read<LoginBloc>().add(OnLoginEvent(
-                                      // userName.text.trim(),
-                                      // userPassword.text.trim()
-                                      ));
+                                      userName.text.trim(),
+                                      userPassword.text.trim()));
                                 }
                               },
                               style: ElevatedButton.styleFrom(

@@ -1,9 +1,9 @@
 import 'package:beegains_task/domian/models/login/login_model.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../core/app_status.dart';
+import '../../../core/api_status.dart';
 
 abstract class LoginRepository {
-  Future<Either<ApiFailure, LoginModel>> checkLogin();
+  Future<Either<ApiFailure, LoginModel>> checkLogin(
+      String userName, String userPassword);
 }
-//Map<String, dynamic> inputPayLoad
