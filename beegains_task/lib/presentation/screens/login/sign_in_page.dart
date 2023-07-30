@@ -6,6 +6,7 @@ import '../../../core/api_status.dart';
 import '../../../core/common_functions.dart';
 import '../../../core/common_widgets.dart';
 import '../../../core/constants.dart';
+import '../../../data/db/functions/db_functions.dart';
 import '../../widgets/textFiled_widget.dart';
 import 'bloc/login_bloc.dart';
 
@@ -81,6 +82,7 @@ class _SignInPageState extends State<SignInPage> {
                             listener: (context, state) {
                               switch (state.loginState) {
                                 case AppStatus.loading:
+
                                   //showLinearLoading(context, true, false);
                                   showCircularLoading(context, true, false);
                                   break;
@@ -91,8 +93,9 @@ class _SignInPageState extends State<SignInPage> {
                                       context,
                                       'Logged In Successfully',
                                       AppColors().kSnackBarSuccessColor);
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                   //Navigate to home screen
-                                  // Navigator.pushNamed(context, '/HomePage');
+                                  Navigator.pushNamed(context, '/HomePage');
 
                                   break;
                                 case AppStatus.failure:
@@ -101,6 +104,7 @@ class _SignInPageState extends State<SignInPage> {
                                       context,
                                       'Invalid username / password',
                                       AppColors().kSnackBarErrorColor);
+                                  FocusManager.instance.primaryFocus?.unfocus();
 
                                   break;
                                 default:
