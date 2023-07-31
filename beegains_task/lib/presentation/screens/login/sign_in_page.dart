@@ -30,7 +30,7 @@ class _SignInPageState extends State<SignInPage> {
         child: SingleChildScrollView(
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
