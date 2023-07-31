@@ -38,9 +38,7 @@ class _SignInPageState extends State<SignInPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        kSizedBox30,
                         Text(
                           'Sign In',
                           style: TextStyle(

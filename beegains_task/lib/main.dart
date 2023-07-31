@@ -17,6 +17,7 @@ void main() async {
       BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
     ],
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: const BeegainsApp(),
       routes: router,
     ),
