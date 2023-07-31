@@ -27,9 +27,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors().kBgTealColor,
       appBar: AppBar(
-        title: const Text('Enquiry List'),
+        title: Text(
+          'Enquiry List',
+          style: TextStyle(
+              color: AppColors().kTextWhiteColor,
+              fontSize: 25,
+              fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
+        backgroundColor: AppColors().kDarkTealColor,
         actions: [
           IconButton(
               onPressed: () {
@@ -44,36 +52,40 @@ class _HomePageState extends State<HomePage> {
           children: [
             BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
-                print('------------');
-                print(state.homeEnquiryState);
-                print(state.homeEnquiryModel);
-
                 if (state.homeEnquiryState == AppStatus.loading) {
                   return const ShimmerEffect(child: HomePageSkeleton());
                 } else if (state.homeEnquiryState == AppStatus.success) {
-                  return SizedBox(
-                      child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount:
-                        state.homeEnquiryModel?.data.enquiries.data.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return EnquiryTile(
-                        id: state
-                            .homeEnquiryModel?.data.enquiries.data[index].id,
-                        name: state
-                            .homeEnquiryModel?.data.enquiries.data[index].name,
-                        mobileNumber: state.homeEnquiryModel?.data.enquiries
-                            .data[index].primaryMobile,
-                        address: state.homeEnquiryModel?.data.enquiries
-                            .data[index].address,
-                      );
-                    },
-                    separatorBuilder: (context, index) => Divider(
-                      thickness: 1,
-                      color: AppColors().kBlueGreyColor,
-                    ),
-                  ));
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SizedBox(
+                        child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount:
+                          state.homeEnquiryModel?.data.enquiries.data.length ??
+                              0,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            EnquiryTile(
+                              id: state.homeEnquiryModel?.data.enquiries
+                                  .data[index].id,
+                              name: state.homeEnquiryModel?.data.enquiries
+                                  .data[index].name,
+                              mobileNumber: state.homeEnquiryModel?.data
+                                  .enquiries.data[index].primaryMobile,
+                              address: state.homeEnquiryModel?.data.enquiries
+                                  .data[index].address,
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) => Divider(
+                        thickness: 1,
+                        color: AppColors().kBlueGreyColor,
+                      ),
+                    )),
+                  );
                 } else if (state.homeEnquiryState == AppStatus.failure) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 45.0),

@@ -28,7 +28,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         return emit(state.copyWith(homeEnquiryState: AppStatus.failure));
       },
       (data) {
-        print('object');
         return emit(state.copyWith(
             homeEnquiryModel: data, homeEnquiryState: AppStatus.success));
       },

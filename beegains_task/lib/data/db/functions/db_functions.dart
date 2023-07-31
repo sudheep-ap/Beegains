@@ -30,8 +30,8 @@ class LocalDatabase {
     final userName = loginDb.get('userNameKey');
     custUserToken = userToken ?? '';
     custUserName = userName ?? '';
-    print('custUserToken : $custUserToken');
-    print('custUserName : $custUserName');
+    // print('custUserToken : $custUserToken');
+    // print('custUserName : $custUserName');
   }
 
 // // To clear local db when user logs out

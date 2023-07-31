@@ -16,7 +16,7 @@ class LoginRepositoryImp implements LoginRepository {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print(data);
+        //print(data);
         final loginModelInstance = LoginModel.fromJson(data);
         return loginModelInstance.success == true
             ? right(loginModelInstance)

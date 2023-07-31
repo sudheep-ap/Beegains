@@ -6,7 +6,6 @@ import '../../../core/api_status.dart';
 import '../../../core/common_functions.dart';
 import '../../../core/common_widgets.dart';
 import '../../../core/constants.dart';
-import '../../../data/db/functions/db_functions.dart';
 import '../../widgets/textFiled_widget.dart';
 import 'bloc/login_bloc.dart';
 
@@ -35,16 +34,6 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.arrow_back_ios_sharp))
-                    ],
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(

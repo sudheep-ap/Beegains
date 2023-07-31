@@ -50,7 +50,7 @@ class EnquiryTile extends StatelessWidget {
       subtitle: Row(
         children: [
           Text(
-            mobileNumber.toString(),
+            address.toString(),
             style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
@@ -60,7 +60,7 @@ class EnquiryTile extends StatelessWidget {
         ],
       ),
       trailing: Text(
-        address.toString(),
+        mobileNumber.toString(),
         style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w400,

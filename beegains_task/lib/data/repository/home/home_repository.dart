@@ -4,13 +4,12 @@ import 'package:dartz/dartz.dart';
 import '../../../core/api_status.dart';
 import '../../../domian/repository/home/home_repo.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../main.dart';
 
 class HomeRepositoryImp implements HomeRepository {
   @override
   Future<Either<ApiFailure, HomeEnquiryModel>> getEnquiryData() async {
-    print('=token: ==$custUserToken');
+    //print('token--- : $custUserToken');
     try {
       http.Response response = await http.get(
         Uri.parse(
@@ -19,12 +18,12 @@ class HomeRepositoryImp implements HomeRepository {
           "Authorization": "Bearer $custUserToken",
         },
       );
-      print(response.statusCode);
-      print(response.body);
+      // print(response.statusCode);
+      // print(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print('--------------------');
-        print(data);
+        // print('--------------------');
+        // print(data);
         final enquiryModelInstance = HomeEnquiryModel.fromJson(data);
         return enquiryModelInstance.success == true
             ? right(enquiryModelInstance)

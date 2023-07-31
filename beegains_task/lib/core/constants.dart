@@ -19,7 +19,7 @@ class AppColors {
   Color kMainWhiteColor = Colors.white;
   Color kBlueGreyColor = Colors.blueGrey;
   Color kLightBlueGreyColor = const Color.fromARGB(255, 156, 195, 214);
-  Color kMainLightColor = Color.fromARGB(255, 78, 79, 80);
+  Color kMainLightColor = const Color.fromARGB(255, 78, 79, 80);
 
   // Button Colors
 
