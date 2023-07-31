@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shimmer/shimmer.dart';
 import 'constants.dart';
 
 // Circular Progress Indicator
@@ -50,4 +51,19 @@ void showCircularLoading(
                 },
                 child: kLoadingIndicator),
           ));
+}
+
+//To add shimmer effect while loading data
+class ShimmerEffect extends StatelessWidget {
+  final Widget child;
+  const ShimmerEffect({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+        baseColor: AppColors().klightGreyColor,
+        highlightColor: const Color.fromARGB(255, 216, 216, 216),
+        period: const Duration(milliseconds: 1500),
+        child: child);
+  }
 }

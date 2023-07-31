@@ -1,11 +1,12 @@
 import 'package:beegains_task/core/api_status.dart';
-import 'package:beegains_task/data/db/functions/db_functions.dart';
+import 'package:beegains_task/core/common_widgets.dart';
 import 'package:beegains_task/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../data/repository/home/home_repository.dart';
-import '../../../data/repository/login/login_repository.dart';
+import '../../../core/constants.dart';
+import '../../../domian/user.dart';
+import '../../widgets/enquiry_tile.dart';
+import '../../widgets/home_page_skeleton.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,11 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _homeBloc = HomeBloc();
+  // final _homeBloc = HomeBloc();
   @override
   void initState() {
     super.initState();
-    _homeBloc.add(OnInitialLoadEvent());
+    //_homeBloc.add(OnInitialLoadEvent());
+    context.read<HomeBloc>().add(OnInitialLoadEvent());
   }
 
   @override
@@ -31,31 +33,65 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                LoginRepositoryImp().userLogOut(context);
+                UserFn().logOutUser(context);
               },
               icon: const Icon(Icons.exit_to_app_sharp))
         ],
       ),
-      body: Center(
-          child: Column(
-        children: [
-          BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              if (state.homeEnquiryState == AppStatus.initial) {
-                return Container(child: Text('Shimmer'));
-              } else if (state.homeEnquiryState == AppStatus.success) {
-                return Container(child: Text('success'));
-              } else if (state.homeEnquiryState == AppStatus.failure) {
-                return Container(child: Text('Failed to load data'));
-              } else {
-                return Container(
-                  child: Text('Something went wrong'),
-                );
-              }
-            },
-          ),
-        ],
-      )),
+      body: SingleChildScrollView(
+        child: Center(
+            child: Column(
+          children: [
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                print('------------');
+                print(state.homeEnquiryState);
+                print(state.homeEnquiryModel);
+
+                if (state.homeEnquiryState == AppStatus.loading) {
+                  return const ShimmerEffect(child: HomePageSkeleton());
+                } else if (state.homeEnquiryState == AppStatus.success) {
+                  return SizedBox(
+                      child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount:
+                        state.homeEnquiryModel?.data.enquiries.data.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return EnquiryTile(
+                        id: state
+                            .homeEnquiryModel?.data.enquiries.data[index].id,
+                        name: state
+                            .homeEnquiryModel?.data.enquiries.data[index].name,
+                        mobileNumber: state.homeEnquiryModel?.data.enquiries
+                            .data[index].primaryMobile,
+                        address: state.homeEnquiryModel?.data.enquiries
+                            .data[index].address,
+                      );
+                    },
+                    separatorBuilder: (context, index) => Divider(
+                      thickness: 1,
+                      color: AppColors().kBlueGreyColor,
+                    ),
+                  ));
+                } else if (state.homeEnquiryState == AppStatus.failure) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 45.0),
+                    child: Center(
+                        child: Text(
+                      'Oops !\n Something went wrong \n Please try again',
+                      style: TextStyle(
+                          fontSize: 18, color: AppColors().kTextGreyColor),
+                    )),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
+          ],
+        )),
+      ),
     );
   }
 }

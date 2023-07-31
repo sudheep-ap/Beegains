@@ -6,6 +6,4 @@ import '../../../core/api_status.dart';
 abstract class LoginRepository {
   Future<Either<ApiFailure, LoginModel>> checkLogin(
       String userName, String userPassword);
-
-  void userLogOut(context) {}
 }

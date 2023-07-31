@@ -10,6 +10,7 @@ import '../../../main.dart';
 class HomeRepositoryImp implements HomeRepository {
   @override
   Future<Either<ApiFailure, HomeEnquiryModel>> getEnquiryData() async {
+    print('=token: ==$custUserToken');
     try {
       http.Response response = await http.get(
         Uri.parse(
@@ -18,7 +19,8 @@ class HomeRepositoryImp implements HomeRepository {
           "Authorization": "Bearer $custUserToken",
         },
       );
-
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         print('--------------------');

@@ -11,9 +11,15 @@ String custUserToken = '';
 String custUserName = '';
 void main() async {
   await LocalDatabase().dataBaseInitialise();
-  runApp(MaterialApp(
-    home: const BeegainsApp(),
-    routes: router,
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
+      BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
+    ],
+    child: MaterialApp(
+      home: const BeegainsApp(),
+      routes: router,
+    ),
   ));
 }
 
@@ -22,17 +28,26 @@ class BeegainsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
-        BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
-      ],
-      child:
-          // BlocProvider(
-          // create: (context) => LoginBloc(),
-          // child:
-          custUserToken.isEmpty ? const SignInPage() : const HomePage(),
-    );
-    // );
+    return custUserToken.isEmpty ? const SignInPage() : const HomePage();
   }
 }
+
+
+
+
+
+
+
+
+
+        // MultiBlocProvider(
+        //   providers: [
+        //     BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
+        //     BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
+        //   ],
+        //   child:
+        // BlocProvider(
+        // create: (context) => LoginBloc(),
+        // child:
+           //);--
+    // );

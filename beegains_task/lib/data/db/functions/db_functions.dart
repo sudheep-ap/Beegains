@@ -16,8 +16,11 @@ class LocalDatabase {
     String userName,
   ) async {
     final loginDb = Hive.box('loginDb');
-    loginDb.put('userTokenKey', userToken);
-    loginDb.put('userNameKey', userName);
+    await loginDb.put('userTokenKey', userToken);
+    await loginDb.put('userNameKey', userName);
+    // custUserToken = userToken;
+    // custUserName = userName;
+    await getUserDetails();
   }
 
 // To fetch user Details
